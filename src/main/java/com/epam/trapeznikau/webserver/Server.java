@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.epam.trapeznikau.handler.HandlerRequest;
+import com.epam.trapeznikau.handler.Controller;
 import com.epam.trapeznikau.httpmethod.Request;
 import com.epam.trapeznikau.httpmethod.Response;
 import com.epam.trapeznikau.utility.RpOperation;
@@ -55,7 +55,6 @@ public class Server {
 
 	class Session implements Runnable {
 
-		@Override
 		public void run() {
 
 			Response rp = new Response();
@@ -63,22 +62,26 @@ public class Server {
 			
 			BufferedReader in = null;
 			OutputStream out = null;
+			
+			Controller controller = new Controller();
 
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out =socket.getOutputStream();
-												
+											
+				
 				rq = RqOperation.parseRq(in, rq);
-				rp = HandlerRequest.getResponse(rq,rp);
-				String response = RpOperation.response(rp);
-															
-				out.write(response.getBytes());
+				rp = controller.executeRequest(rq, rp);
+							
+				String response = RpOperation.response(rp);					
+				out.write(response.getBytes("UTF-8"));
 								
 				in.close();
 				out.flush();
 				out.close();
 				socket.close();
-				
+				curNumberClients--;
+					
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

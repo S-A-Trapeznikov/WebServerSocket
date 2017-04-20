@@ -1,4 +1,4 @@
-package com.epam.trapeznikau.utility;
+ package com.epam.trapeznikau.utility;
 
 import com.epam.trapeznikau.httpmethod.Request;
 import com.epam.trapeznikau.httpmethod.Response;
@@ -10,16 +10,9 @@ public class RpOperation {
 	public static Response fillResponse(Request rq, Response rp) {
 		
 		rp.setVersion(rq.getVersion());
-		if ((rp.getBody()!="")&&(rp.getBody()!=null)){
-			rp.setStatusCode("200");
-			rp.setPhrase("OK");
-		}else {rp.setStatusCode("400");
-			   rp.setPhrase("Bad request");
-			   }
-		rp.setContentEncoding(rq.getAcceptEncoding());
+	    rp.setContentEncoding(rq.getAcceptEncoding());
 		rp.setContentLanguage(rq.getAcceptLanguage());
-		rp.setContentLength(rp.getBody().getBytes().length);
-		rp.setContentType(rq.getContentType());
+		rp.setContentType(rq.getAccept());
 		rp.setServer("//LocalHost:8020");
 		
 		return rp;
@@ -34,8 +27,9 @@ public class RpOperation {
 		response.append("Server: "+ rp.getServer()+"\r\n");
 		response.append("Content-Type: "+rp.getContentType()+"\r\n");
 		response.append("Content-Language: "+rp.getContentLanguage()+"\r\n");
-		response.append("Content-Encoding: "+rp.getContentEncoding()+" ");
-		response.append("Content-Length: "+rp.getContentLength()+" ");
+		response.append("Content-Length: "+rp.getContentLength()+"\r\n");
+		response.append("Content-Encoding: UTF-8 \r\n");		
+		response.append("\r\n");	
 		response.append(rp.getBody());		
 		
 		return response.toString();

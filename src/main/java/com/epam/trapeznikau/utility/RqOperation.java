@@ -25,7 +25,7 @@ public class RqOperation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
 		rq = parseListRq(strRq,rq);
 				
 		return rq;
@@ -49,8 +49,7 @@ public class RqOperation {
 
 	private static Request parseListRq(List<String> strRq, Request rq) {
 		String str;
-		String body = "";
-		String partBody;
+		String body = "";		
 		String arrStr[];
 		int count = 0;
 		ListIterator<String> iterator = strRq.listIterator();
