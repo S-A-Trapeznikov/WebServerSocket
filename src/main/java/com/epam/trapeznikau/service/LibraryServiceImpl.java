@@ -27,18 +27,11 @@ public class LibraryServiceImpl implements LibraryService{
 	}
 
 	@Override
-	public boolean delete(String uri, String delBook) {
+	public boolean delete(String uri, Book delBook) {
 		List<Book> books =new  ArrayList<>();
 		books = bookDAO.readBooks(uri);
-		Book comBook = null;
 		boolean status = false;
-		try {
-			comBook = BooksParser.parseStrToBook(delBook);
-		} catch (ParserConfigurationException | TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		status = books.remove(comBook);		
+		status = books.remove(delBook);		
 		if (status){
 			return bookDAO.updateBooks(books);
 		} else {
@@ -47,25 +40,18 @@ public class LibraryServiceImpl implements LibraryService{
 	}
 
 	@Override
-	public boolean update(String uri, String upBook) {
+	public boolean update(String uri, Book upBook) {
 		List<Book> books =new  ArrayList<>();
 		books = bookDAO.readBooks(uri);
-		Book comBook = null;
 		boolean status = false;
-		try {
-			comBook = BooksParser.parseStrToBook(upBook);
-		} catch (ParserConfigurationException | TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Integer id = comBook.getId();
+		Integer id = upBook.getId();
 		ListIterator<Book> itr =books.listIterator();
 		while(itr.hasNext()){
 			Book curBook = itr.next();
 			if (curBook.getId()==id){
-				curBook.setTitle(comBook.getTitle());
-				curBook.setPrice(comBook.getPrice());
-				curBook.setAuthor(comBook.getAuthor());
+				curBook.setTitle(upBook.getTitle());
+				curBook.setPrice(upBook.getPrice());
+				curBook.setAuthor(upBook.getAuthor());
 				status =true;
 			}
 		}
@@ -77,18 +63,11 @@ public class LibraryServiceImpl implements LibraryService{
 	}
 
 	@Override
-	public boolean create(String uri, String newBook) {
+	public boolean create(String uri, Book newBook) {
 		List<Book> books =new  ArrayList<>();
 		books = bookDAO.readBooks(uri);
-		Book comBook = null;
 		boolean status = false;
-		try {
-			comBook = BooksParser.parseStrToBook(newBook);
-		} catch (ParserConfigurationException | TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		status =books.add(comBook);
+				status =books.add(newBook);
 		if (status){
 			return bookDAO.updateBooks(books);
 		} else {

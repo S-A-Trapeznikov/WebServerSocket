@@ -77,10 +77,11 @@ public class Server {
 				out.write(response.getBytes("UTF-8"));
 								
 				in.close();
-				out.flush();
+//				out.flush();
 				out.close();
 				socket.close();
 				curNumberClients--;
+				System.out.println("Connecting clients "+curNumberClients);
 					
 
 			} catch (IOException e) {

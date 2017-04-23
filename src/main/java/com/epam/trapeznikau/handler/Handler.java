@@ -15,8 +15,8 @@ public class Handler {
 	
 	public Handler (){
 		listCommand.put(Method.GET, new ReadBooks());
-		listCommand.put(Method.PUT, new UpdateBook());
-		listCommand.put(Method.POST, new AddBook());
+		listCommand.put(Method.POST, new UpdateBook());
+		listCommand.put(Method.PUT, new AddBook());
 		listCommand.put(Method.DELETE, new DeleteBook());
 	}
 			

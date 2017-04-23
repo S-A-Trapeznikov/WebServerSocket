@@ -23,7 +23,7 @@ import com.epam.trapeznikau.utility.BooksParser;
 
 public class XMLBookDAO implements BookDAO{
 	
-	public final static String URI_BOOKS = "D:\\Siarhei_Trapeznikau\\Java Automation\\Web service\\Tasks\\Tasks 01 BookWebService\\Data\\book\\Books.xml";
+	public final static String URI_BOOKS = "d:\\JOB\\EPAM\\TAT\\Webservice\\Tasks\\WebServerSocket\\resources\\Books.xml";
 	public final static String GET_BOOKS = "/book";
 	
 	@Override

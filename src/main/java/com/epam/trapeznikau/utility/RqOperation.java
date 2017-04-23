@@ -20,6 +20,7 @@ public class RqOperation {
 			while (in.ready()) {
 				strRq.add(str);
 				str = in.readLine();
+				
 				}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -56,7 +57,6 @@ public class RqOperation {
 		
 		while (iterator.hasNext()) {
 			str = iterator.next();
-			
 			if (count == 0) {
 				arrStr = str.split(" ");
 				rq.setMethod(arrStr[0]);
@@ -66,7 +66,8 @@ public class RqOperation {
 					count = 1;
 				}
 			} else {
-				arrStr = str.split(": ");				
+				arrStr = str.split(": ");	
+				
 				int l = arrStr.length;
 				if (l == 2) {
 					switch (arrStr[0].toLowerCase()) {
@@ -94,10 +95,22 @@ public class RqOperation {
 					case "accept-language":
 						rq.setAcceptLanguage(getLeftChars(arrStr, 1, l));
 						break;
+					case "connection":
+						
+						break;
+					default: if((rq.getContentType()!=null)&&(rq.getContentType()!="")&&
+							(rq.getContentType().trim().startsWith("application/json"))){
+								body += (str+"\n"); 
+								}
+							break;
 					}
-				} else {
-					body += (arrStr[0] + "\n");
-				}
+				} else if((rq.getContentType()!=null)&&(rq.getContentType()!="")&&
+						(rq.getContentType().trim().startsWith("application/json"))){
+					body += (str+"\n"); 
+					}else {
+						body += (arrStr[0] + "\n");
+					}
+					
 			}
 			rq.setBody(body);
 	}

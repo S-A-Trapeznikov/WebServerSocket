@@ -109,7 +109,6 @@ public class BooksParser {
 			Book book = null;
 			Element root = document.getDocumentElement();
 			NodeList booksNodes = root.getElementsByTagName("book");
-			System.out.println(booksNodes.getLength());
 			if (booksNodes.getLength()!=0){
 			book = new Book();
 				Element bookElement = (Element) booksNodes.item(0);
